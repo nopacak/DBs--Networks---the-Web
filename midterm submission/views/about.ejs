@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About The Blog</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link to my custom CSS -->
+    <link href="/main.css" rel="stylesheet">
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon"/>
+</head>
+<body>
+    <div class="navbar-no-shadow">
+        <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar-no-shadow-container w-nav">
+          <div class="container-regular">
+            <div class="navbar-wrapper">
+              <a href="#" class="navbar-brand w-nav-brand"></a><img src="/assets/Logo.png" loading="lazy" height="121" alt="" class="image">
+              <nav role="navigation" class="nav-menu-wrapper w-nav-menu">
+                <ul role="list" class="nav-menu">
+                    <a href="/" class="nav-link">Home Page</a>
+                    <a href="/reader" class="nav-link">Reader's Page</a>
+                    <a href="<%= user ? `/${user}/author-home` : '/login' %>" class="nav-link">Author's Page</a> 
+                  <li class="mobile-margin-top-10">
+                    <div class="nav-button-wrapper">
+                      <% if (user) { %>
+                        <a href="<%= `/${user}/settings` %>" class="btn button-primary w-button">Settings</a>
+                      <% } else { %>
+                        <a href="/login" class="btn button-primary w-button">Sign In</a>
+                      <% } %>
+                      <% if (user) { %>
+                        <a href="/logout" class="btn button-primary w-button">Sign Out</a>
+                      <% } else { %>
+                        <a href="/users/add-user" class="btn button-primary w-button">Register</a>
+                      <% } %>
+                    </div>
+                  </li>
+                </ul>
+              </nav>
+              <div class="menu-button w-nav-button">
+                <div class="w-icon-nav-menu"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <section class="hero-without-image">
+        <div class="container">
+            <div class="hero-wrapper-two">
+                <h1 class="text-center">About The Blog</h1>
+                <p><h4 class="text-center">Our Story:</h4></p>
+                <p class="lead text">Founded with a passion for knowledge sharing and a dedication to fostering curiosity, 
+                    The Blog has evolved into a vibrant platform for exploration and discovery. 
+                    What began as a humble endeavor to curate compelling content has grown into a community-driven hub where 
+                    ideas flourish and perspectives converge.</p>
+                <p><h4 class="text-center">Purpose:</h4></p>
+                <p class="lead text">At The Blog, our purpose is clear: to inspire and educate. 
+                    We strive to provide our readers with thought-provoking articles that not only inform but also ignite a thirst for knowledge. 
+                    Whether you're seeking insights on the latest trends, exploring diverse viewpoints, or delving into in-depth analyses, 
+                    our content is designed to engage, challenge, and enrich your understanding of the world around us.</p>
+                
+                <p><h4 class="text-center">Mission:</h4></p>
+                <p class="lead text">Our mission is to empower individuals through accessible, insightful content that encourages lifelong
+                        learning and personal growth. We aim to foster a community of curious minds, where discussions thrive and ideas are 
+                        celebrated. By curating diverse perspectives and embracing continuous exploration, we aspire to make a meaningful impact 
+                        on how people engage with information and ideas.</p>
+                
+                <p><h4 class="text-center">Vision:</h4></p>
+                <p class="lead text">Looking ahead, we envision The Blog as a trusted source of inspiration and knowledge—a place where curiosity knows no bounds and learning is a transformative journey. 
+                    We aim to expand our reach, connect with global audiences, and continue delivering valuable content that resonates with readers from all walks of life. 
+                    Together, we're shaping a future where curiosity leads to understanding, empowerment, and positive change.
+                    Join us on this enriching journey of discovery, learning, and meaningful conversations at The Blog. 
+                    Together, let's explore the world of ideas and embrace the power of knowledge.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+</html>

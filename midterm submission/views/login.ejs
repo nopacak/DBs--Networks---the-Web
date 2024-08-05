@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link to my custom CSS -->
+    <link rel="stylesheet" href="/main.css">
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon"/>
+</head>
+<body>
+    <div class="navbar-no-shadow">
+        <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar-no-shadow-container w-nav">
+            <div class="container-regular">
+                <div class="navbar-wrapper">
+                    <a href="#" class="navbar-brand w-nav-brand"></a><img src="/assets/Logo.png" loading="lazy" height="121" alt="" class="image">
+                    <nav role="navigation" class="nav-menu-wrapper w-nav-menu">
+                        <ul role="list" class="nav-menu">
+                            <a href="/" class="nav-link">Home page</a>
+                            <a href="/about" class="nav-link">About</a>
+                            <a href="/reader" class="nav-link">Reader's Page</a>
+                        </ul>
+                    </nav>
+                    <div class="menu-button w-nav-button">
+                        <div class="w-icon-nav-menu"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="text-center">Sign In</h1>
+        <p class="lead text-center">Please sign in to access the author's page and settings</p>
+        <% if (typeof error !== 'undefined') { %>
+            <div class="alert alert-danger text-center"><%= error %></div>
+        <% } %>
+        <form method="POST" action="/login" class="mx-auto" style="max-width: 400px;">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" type="text" name="username" class="form-control" placeholder="username" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" type="password" name="password" class="form-control" placeholder="password" required />
+            </div>
+            <div class="text-center">
+                <input type="submit" value="Submit" class="btn button-primary w-button" />
+            </div>
+            <div class="'text-center">
+                <p class="text-center">Don't have an account?
+                <a href="/users/add-user" class="nav-link">Register here</a></p>
+            </div>
+        </form>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

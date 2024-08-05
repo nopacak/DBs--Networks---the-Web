@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Blog!</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link to my custom CSS -->
+    <link rel="stylesheet" href="/main.css">
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon"/>
+        <!-- Font Awesome for icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="navbar-no-shadow">
+        <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar-no-shadow-container w-nav">
+          <div class="container-regular">
+            <div class="navbar-wrapper">
+              <a href="#" class="navbar-brand w-nav-brand"></a><img src="/assets/Logo.png" loading="lazy" height="121" alt="" class="image">
+              <nav role="navigation" class="nav-menu-wrapper w-nav-menu">
+                <ul role="list" class="nav-menu">
+                    <a href="/about" class="nav-link">About</a>
+                    <a href="/reader" class="nav-link">Reader's Page</a>
+                    <a href="<%= user ? `/${user}/author-home` : '/login' %>" class="nav-link">Author's Page</a>
+                  <li class="mobile-margin-top-10">
+                    <div class="nav-button-wrapper">
+                      <% if (user) { %>
+                        <a href="<%= `/${user}/settings` %>" class="btn button-primary w-button">Settings</a>
+                      <% } else { %>
+                        <a href="/login" class="btn button-primary w-button">Sign In</a>
+                      <% } %>
+                      <% if (user) { %>
+                        <a href="/logout" class="btn button-primary w-button">Sign Out</a>
+                      <% } else { %>
+                        <a href="/users/add-user" class="btn button-primary w-button">Register</a>
+                      <% } %>
+                    </div>
+                  </li>
+                </ul>
+              </nav>
+              <div class="menu-button w-nav-button">
+                <div class="w-icon-nav-menu"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <section class="hero-without-image">
+        <div class="container">
+          <div class="hero-wrapper-two">
+            <h1>Welcome to The Blog!</h1>
+            <p class="lead text">Dive into a world of engaging content, curated just for you. Whether you&#x27;re looking for inspiration, information, or a fresh perspective, you&#x27;ll find it all here. Happy reading!</p>
+          </div>
+        </div>
+      </section>
+    <div class="container">
+        <section class="gallery-slider">
+            <h3 class="text-center">Our most popular blog posts</h3>
+            <div class="gallery-wrapper">
+                <div class="container">
+                    <% if (mostLikedPosts && mostLikedPosts.length > 0) { %>
+                        <ul class="list-group">
+                            <% mostLikedPosts.forEach(function(post) { %>
+                                <li class="list-group-item">
+                                    <a href="/blogpost/<%= post.blogpost_id %>" class="nav-link" style="font-size: 18px; margin-left: 0px; padding-left: 0px;"><%= post.title %></a> 
+                                    <span class="text"> By: <%= post.username %></span>
+                                    <span class="float-right"><i class="fa fa-heart"></i> <%= post.likes %></span>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    <% } else { %>
+                        <p class="lead text">No popular posts available.</p>
+                    <% } %>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

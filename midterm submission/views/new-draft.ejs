@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Draft - <%= user %>'s Blog</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link to my custom CSS -->
+    <link rel="stylesheet" href="/main.css">
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon"/>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="navbar-no-shadow">
+        <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar-no-shadow-container w-nav">
+            <div class="container-regular">
+                <div class="navbar-wrapper">
+                    <a href="#" class="navbar-brand w-nav-brand"></a><img src="/assets/Logo.png" loading="lazy" height="121" alt="" class="image">
+                    <nav role="navigation" class="nav-menu-wrapper w-nav-menu">
+                        <ul role="list" class="nav-menu">
+                            <a href="/" class="nav-link">Home Page</a>
+                            <a href="/about" class="nav-link">About</a>
+                            <a href="/reader" class="nav-link">Reader's page</a>
+                            <li class="mobile-margin-top-10">
+                                <div class="nav-button-wrapper">
+                                    <% if (user) { %>
+                                        <button onclick="window.location.href='/<%= user %>/author-home'" class="btn button-primary" >
+                                            <i class="fas fa-arrow-left" style="color: rgb(188, 188, 188);"></i> Back
+                                        </button>
+                                    <% } else { %>
+                                      <a href="/login" class="btn button-primary w-button">Sign In</a>
+                                    <% } %>
+                                    <% if (user) { %>
+                                      <a href="/logout" class="btn button-primary w-button">Sign Out</a>
+                                    <% } else { %>
+                                      <a href="/users/add-user" class="btn button-primary w-button">Register</a>
+                                    <% } %>
+                                  </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="menu-button w-nav-button">
+                        <div class="w-icon-nav-menu"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h3 class="text-center">Create New Draft</h3>
+        <h1 class="text-center"><%= user %>'s Blog</h1>
+    </div>
+    <section class="hero-without-image">
+        <div class="container">
+            <form action="/<%= user %>/new-draft" method="POST">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" class="form-control" placeholder="Enter draft title" required>
+                </div>
+                <div class="form-group">
+                    <label for="body">Body</label>
+                    <textarea id="body" name="body" class="form-control" rows="6" placeholder="Write your draft here" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" name="action" value="save" class="btn button-primary" style="background-color: #666666;">Save Draft</button>
+                    <button type="submit" name="action" value="publish" class="btn button-primary">Publish</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

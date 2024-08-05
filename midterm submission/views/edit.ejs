@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit <%= type === 'blogpost' ? 'Post' : 'Draft' %></title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link to my custom CSS -->
+    <link rel="stylesheet" href="/main.css">
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon"/>
+</head>
+<body>
+    <div class="navbar-no-shadow">
+        <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar-no-shadow-container w-nav">
+          <div class="container-regular">
+            <div class="navbar-wrapper">
+              <a href="#" class="navbar-brand w-nav-brand"></a><img src="/assets/Logo.png" loading="lazy" height="121" alt="" class="image">
+              <nav role="navigation" class="nav-menu-wrapper w-nav-menu">
+                <ul role="list" class="nav-menu">
+                    <a href="/" class="nav-link">Home Page</a>
+                    <a href="/reader" class="nav-link">Reader's Page</a>
+                    <a href="<%= user ? `/${user}/author-home` : '/login' %>" class="nav-link">Author's Page</a>
+                    <li class="mobile-margin-top-10">
+                        <div class="nav-button-wrapper">
+                            <% if (user) { %>
+                              <a href="<%= `/${user}/settings` %>" class="btn button-primary w-button">Settings</a>
+                            <% } else { %>
+                              <a href="/login" class="btn button-primary w-button">Sign In</a>
+                            <% } %>
+                            <% if (user) { %>
+                              <a href="/logout" class="btn button-primary w-button">Sign Out</a>
+                            <% } else { %>
+                              <a href="/users/add-user" class="btn button-primary w-button">Register</a>
+                            <% } %>
+                          </div>
+                      </li>
+                    </ul>
+                  </nav>
+                  <div class="menu-button w-nav-button">
+                    <div class="w-icon-nav-menu"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <section class="hero-without-image">
+            <div class="container">
+              <div class="hero-wrapper-two">
+                <h1>Edit <%= type === 'blogpost' ? 'Post' : 'Draft' %></h1>
+              </div>
+            </div>
+            <div class="container"></div>
+            <div class="w-form">
+                <form id="editForm" method="POST" action="/<%= type %>/<%= item[type === 'blogpost' ? 'blogpost_id' : 'draft_id'] %>/edit">
+                    <input type="hidden" name="type" value="<%= type %>">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                    </div>
+                    <div class="form-group">
+                        <input class="title-field w-input" maxlength="256" name="title" placeholder="Title" type="text" id="title" required="" value="<%= item.title %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="body">Body</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="body-field w-input" maxlength="5000" name="body" placeholder="Write here" id="body" required=""><%= item.body %></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="action" value="save" class="btn button-primary" style="background-color: #666666;">Save</button>
+                        <button type="submit" name="action" value="publish" class="btn button-primary">Publish</button>
+                    </div>
+                </form>
+              <div class="w-form-done">
+                <section class="hero-without-image">
+                    <div>Thank you! Your <%= type === 'blogpost' ? 'post' : 'draft' %> is successfully updated!</div>
+                </section>
+              </div>
+              <div class="w-form-fail">
+                <section class="hero-without-image">
+                    <div>Oops! Something went wrong while updating.</div>
+                </section>
+              </div>
+            </div>
+          </section>
+        <!-- Bootstrap JS and dependencies -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+    </html>

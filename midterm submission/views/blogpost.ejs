@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= blogpost.title %></title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link to my custom CSS -->
+    <link rel="stylesheet" href="/main.css">
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon"/>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="navbar-no-shadow">
+        <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar-no-shadow-container w-nav">
+          <div class="container-regular">
+            <div class="navbar-wrapper">
+              <a href="#" class="navbar-brand w-nav-brand"></a><img src="/assets/Logo.png" loading="lazy" height="121" alt="" class="image">
+              <nav role="navigation" class="nav-menu-wrapper w-nav-menu">
+                <ul role="list" class="nav-menu">
+                    <a href="/" class="nav-link">Home Page</a>
+                    <a href="/reader" class="nav-link">Reader's Page</a>
+                    <a href="<%= user ? `/${user}/author-home` : '/login' %>" class="nav-link">Author's Page</a>
+                    <li class="mobile-margin-top-10">
+                        <div class="nav-button-wrapper">
+                            <% if (user) { %>
+                                <button onclick="window.location.href='/<%= user %>/author-home'" class="btn button-primary" >
+                                    <i class="fas fa-arrow-left" style="color: rgb(188, 188, 188);"></i> Back
+                                </button>
+                            <% } else { %>
+                              <a href="/login" class="btn button-primary w-button">Sign In</a>
+                            <% } %>
+                            <% if (user) { %>
+                              <a href="/logout" class="btn button-primary w-button">Sign Out</a>
+                            <% } else { %>
+                              <a href="/users/add-user" class="btn button-primary w-button">Register</a>
+                            <% } %>
+                        </div>
+                  </li>
+                </ul>
+              </nav>
+              <div class="menu-button w-nav-button">
+                <div class="w-icon-nav-menu"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <section class="hero-without-image">
+        <div class="container">
+            <div class="hero-wrapper-two">
+                <h3>Read Blog Post (Article) Page</h3>
+                <h1><%= blogpost.title %></h1>
+                <p>By <%= blogpost.author %> on <%= blogpost.date_published %></p>
+                <div>
+                    <p><%= blogpost.body %></p>
+                </div>
+                <div>
+                    <button id="likeButton" class="btn btn-light">
+                        <i class="fa fa-heart"></i> <span id="likeCount"><%= blogpost.likes %></span>
+                    </button>
+                    <i class="fas fa-eye" style="color: grey;"></i> <%= blogpost.views %>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="comments-section">
+        <div class="container">
+            <h2>Comments</h2>
+            <ul class="list-group">
+                <% if (comments && comments.length > 0) { %>
+                    <% comments.forEach(function(comment) { %>
+                        <li class="list-group-item">
+                            <strong><%= comment.username %>:</strong>
+                            <p><%= comment.body %></p>
+                            <small><%= comment.date %></small>
+                        </li>
+                    <% }) %>
+                <% } else { %>
+                    <li class="list-group-item">No comments yet</li>
+                <% } %>
+            </ul>
+        </div>
+    </section>
+
+    <section class="comment-form">
+        <div class="container">
+            <h2>Leave a Comment</h2>
+            <form id="commentForm" action="/blogpost/<%= blogpost.blogpost_id %>/add-comment" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="body">Comment</label>
+                    <textarea class="form-control" id="body" name="body" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn button-primary">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      document.getElementById('likeButton').addEventListener('click', function() {
+        const blogpostId = '<%= blogpost.blogpost_id %>';
+        console.log('Blogpost ID: ', blogpostId);
+        if (!blogpostId) {
+            console.error('Blogpost ID is missing');
+            return;
+        }
+        fetch(`/blogpost/${blogpostId}/like`, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('likeCount').textContent = data.likes;
+        });
+    });
+  </script>
+</body>
+</html>

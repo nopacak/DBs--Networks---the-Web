@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reader's Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link to my custom CSS -->
+    <link rel="stylesheet" href="/main.css">
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon"/>
+</head>
+<body>
+    <div class="navbar-no-shadow">
+        <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar-no-shadow-container w-nav">
+            <div class="container-regular">
+                <div class="navbar-wrapper">
+                    <a href="#" class="navbar-brand w-nav-brand"></a><img src="/assets/Logo.png" loading="lazy" height="121" alt="" class="image">
+                    <nav role="navigation" class="nav-menu-wrapper w-nav-menu">
+                        <ul role="list" class="nav-menu">
+                            <a href="/" class="nav-link">Home Page</a>
+                            <a href="/about" class="nav-link">About</a>
+                            <a href="<%= user ? `/${user}/author-home` : '/login' %>" class="nav-link">Author's Page</a>
+                            <li class="mobile-margin-top-10">
+                                <div class="nav-button-wrapper">
+                                    <% if (user) { %>
+                                      <a href="<%= `/${user}/settings` %>" class="btn button-primary w-button">Settings</a>
+                                    <% } else { %>
+                                      <a href="/login" class="btn button-primary w-button">Sign In</a>
+                                    <% } %>
+                                    <% if (user) { %>
+                                      <a href="/logout" class="btn button-primary w-button">Sign Out</a>
+                                    <% } else { %>
+                                      <a href="/users/add-user" class="btn button-primary w-button">Register</a>
+                                    <% } %>
+                                  </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="menu-button w-nav-button">
+                        <div class="w-icon-nav-menu"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="text-center">Reader Home Page</h1>
+        <h3 class="lead text-center">Here you can see all of our registered authors and their blog posts (articles):</h3>
+    </div>
+    <section class="hero-without-image">
+        <div class="container">
+            <ul class="list-group">
+                <% if (availableUsers && availableUsers.length > 0) { %>
+                    <% availableUsers.forEach(function(user) { %>
+                    <li class="list-group-item user-row">
+                        <strong><%= user.username %></strong>
+                        <ul class="list-group">
+                            <% if (user.blogposts && user.blogposts.length > 0) { %>
+                                <% user.blogposts.forEach(function(blogpost) { %>
+                                <li class="list-group-item blogpost-row">
+                                    <a href="/blogpost/<%= blogpost.blogpost_id %>" class="nav-link"><%= blogpost.title %></a>
+                                    <span class="nav-link-2">Published on: <%= blogpost.date_published %></span>
+                                </li>
+                                <% }) %>
+                            <% } else { %>
+                                <li class="list-group-item">No blog posts available for this author</li>
+                            <% } %>
+                        </ul>
+                    </li>
+                    <% }) %>
+                <% } else { %>
+                    <li class="list-group-item">No registered users available</li>
+                <% } %>
+            </ul>
+        </div>
+    </section>
+    
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
